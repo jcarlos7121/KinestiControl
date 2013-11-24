@@ -1,0 +1,14 @@
+C:\Users\JuanCarlos\v1.x\ToolkitSamples1.8.0\C#\SkeletonBasics-WPF\obj\Debug\SkeletonBasics-WPF.csprojResolveAssemblyReference.cache
+C:\Users\JuanCarlos\v1.x\ToolkitSamples1.8.0\C#\SkeletonBasics-WPF\obj\Debug\MainWindow.baml
+C:\Users\JuanCarlos\v1.x\ToolkitSamples1.8.0\C#\SkeletonBasics-WPF\obj\Debug\MainWindow.g.cs
+C:\Users\JuanCarlos\v1.x\ToolkitSamples1.8.0\C#\SkeletonBasics-WPF\obj\Debug\App.g.cs
+C:\Users\JuanCarlos\v1.x\ToolkitSamples1.8.0\C#\SkeletonBasics-WPF\obj\Debug\Microsoft.Samples.Kinect.SkeletonBasics.Properties.Resources.resources
+C:\Users\JuanCarlos\v1.x\ToolkitSamples1.8.0\C#\SkeletonBasics-WPF\obj\Debug\SkeletonBasics-WPF.csproj.GenerateResource.Cache
+C:\Users\JuanCarlos\v1.x\ToolkitSamples1.8.0\C#\SkeletonBasics-WPF\bin\Debug\TestSkeleton.exe
+C:\Users\JuanCarlos\v1.x\ToolkitSamples1.8.0\C#\SkeletonBasics-WPF\bin\Debug\TestSkeleton.pdb
+C:\Users\JuanCarlos\v1.x\ToolkitSamples1.8.0\C#\SkeletonBasics-WPF\obj\Debug\TestSkeleton_MarkupCompile.cache
+C:\Users\JuanCarlos\v1.x\ToolkitSamples1.8.0\C#\SkeletonBasics-WPF\obj\Debug\TestSkeleton.g.resources
+C:\Users\JuanCarlos\v1.x\ToolkitSamples1.8.0\C#\SkeletonBasics-WPF\obj\Debug\TestSkeleton.exe
+C:\Users\JuanCarlos\v1.x\ToolkitSamples1.8.0\C#\SkeletonBasics-WPF\obj\Debug\TestSkeleton.pdb
+C:\Users\JuanCarlos\v1.x\ToolkitSamples1.8.0\C#\SkeletonBasics-WPF\bin\Debug\InTheHand.Net.Personal.dll
+C:\Users\JuanCarlos\v1.x\ToolkitSamples1.8.0\C#\SkeletonBasics-WPF\bin\Debug\InTheHand.Net.Personal.xml
