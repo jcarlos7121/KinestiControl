@@ -20,6 +20,8 @@
 
 namespace Microsoft.Samples.Kinect.SkeletonBasics
 {
+        
+     using System;
      using System.Diagnostics;
      using System.IO;
      using System.Windows;
@@ -30,6 +32,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
      using InTheHand.Net.Bluetooth;
      using InTheHand.Net.Ports;
      using InTheHand.Net.Sockets;
+    using System.Text;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -205,11 +208,61 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
+        Guid mUUID = new Guid("00001101-0000-1000-8000-00805F9B34FB");
+        BluetoothDeviceInfo dispositivomeromero;
+        bool locke = false;
+        byte[] posiciony = Encoding.ASCII.GetBytes("P");
+
         private void escaneo(){
+             Debug.WriteLine("Inicio de escaneo");
              BluetoothClient cliente = new BluetoothClient();
              BluetoothDeviceInfo[] dispositivos = cliente.DiscoverDevicesInRange();
-             Debug.WriteLine(dispositivos.Length.ToString() + "numero de dispositivos");
+             Debug.WriteLine("\n"+dispositivos.Length.ToString() + " numero de dispositivos");
+             foreach (BluetoothDeviceInfo blue in dispositivos)
+             {
+                 Debug.WriteLine(blue.DeviceAddress + " " + blue.DeviceName);
+                 if (blue.DeviceAddress.ToString().Equals("0015FFF21179"))
+                 {
+                     Debug.WriteLine("tenemos un ganador!! " + blue.DeviceAddress.ToString());
+                     dispositivomeromero = blue;
+                 }
+             }
+            //201308021034 
+            if (parear()){
+                Debug.WriteLine("Conectado!!");
+                Thread tredi = new Thread(new ThreadStart(conectio));
+                tredi.Start();
+            }
+        }
 
+        private void conectio() {
+            BluetoothClient cliento = new BluetoothClient();
+            cliento.BeginConnect(dispositivomeromero.DeviceAddress,mUUID,this.callbacko,cliento);
+        }
+
+        void callbacko(IAsyncResult resulti){
+            Debug.WriteLine("Comenzare a mandar");
+            BluetoothClient clienti = (BluetoothClient)resulti.AsyncState;
+            clienti.EndConnect(resulti);
+            Stream strimi = clienti.GetStream();
+            strimi.ReadTimeout = 1000;
+
+            while(true){
+                while (!locke);
+                strimi.Write(posiciony,0,posiciony.Length);
+                System.Threading.Thread.Sleep(50);
+            }
+        }
+
+        string clave = "1234";
+
+        private bool parear(){
+          if(!dispositivomeromero.Authenticated){
+                if(!BluetoothSecurity.PairRequest(dispositivomeromero.DeviceAddress,clave)){
+                    return false;
+                }
+          }
+          return true;
         }
 
         private void WindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -237,8 +290,32 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
              foreach (Skeleton skeleto in skeletons){
                    Joint manoderecha = skeleto.Joints[JointType.HandRight];
                    double cordenadaeny = manoderecha.Position.Y;
-                   Debug.WriteLine(cordenadaeny+"");
-            }
+
+                   Joint manoizquierda = skeleto.Joints[JointType.HandLeft];
+                   double cordenadaenyiz = manoizquierda.Position.Y;
+
+                   //Debug.WriteLine(cordenadaeny+"");
+                   double ble = cordenadaeny * 255;
+                   double bli = cordenadaenyiz * 255;
+
+                   if (ble > 0 && bli > 0 )
+                   {
+                       int parsed = Convert.ToInt32(ble);
+                       string PaddedResultderecha = parsed.ToString().PadLeft(3, '0'); // results in 009
+                       
+
+                       int parsei = Convert.ToInt32(bli);
+                       string PaddedResultizquierda = parsei.ToString().PadLeft(3, '0');
+
+                       Debug.WriteLine("["+PaddedResultizquierda+","+PaddedResultderecha+"]");
+
+                       posiciony = Encoding.ASCII.GetBytes("[" + PaddedResultizquierda + "," + PaddedResultderecha + "]");
+                       locke = true;
+                   }
+                   else {
+                       locke = false;
+                   }
+             }
 
             using (DrawingContext dc = this.drawingGroup.Open())
             {
